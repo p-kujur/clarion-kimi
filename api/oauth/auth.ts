@@ -23,7 +23,7 @@ async function exchangeAuthCode(
     client_secret: env.appSecret,
   });
 
-  const resp = await fetch(`${env.kimiAuthUrl}/api/oauth/token`, {
+  const resp = await fetch(`${env.authServerUrl}/api/oauth/token`, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: body.toString(),
@@ -38,7 +38,7 @@ async function exchangeAuthCode(
 }
 
 const jwks = jose.createRemoteJWKSet(
-  new URL(`${env.kimiAuthUrl}/api/.well-known/jwks.json`),
+  new URL(`${env.authServerUrl}/api/.well-known/jwks.json`),
 );
 
 async function verifyAccessToken(

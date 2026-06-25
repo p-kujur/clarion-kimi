@@ -88,9 +88,9 @@ export default function HeroSection() {
           </p>
 
           <div ref={socialRef} className="flex items-center gap-5 mb-10 text-white">
-            <a href="#" className="hover:text-[#F58220] transition-colors"><Facebook size={22} fill="currentColor" strokeWidth={0} /></a>
-            <a href="#" className="hover:text-[#F58220] transition-colors"><Instagram size={22} /></a>
-            <a href="#" className="hover:text-[#F58220] transition-colors"><Twitter size={22} fill="currentColor" strokeWidth={0} /></a>
+            <a href="https://www.facebook.com/clarioneduskill" target="_blank" rel="noopener noreferrer" className="hover:text-[#F58220] transition-colors"><Facebook size={22} fill="currentColor" strokeWidth={0} /></a>
+            <a href="https://www.instagram.com/clarioneduskill" target="_blank" rel="noopener noreferrer" className="hover:text-[#F58220] transition-colors"><Instagram size={22} /></a>
+            <a href="https://twitter.com/clarioneduskill" target="_blank" rel="noopener noreferrer" className="hover:text-[#F58220] transition-colors"><Twitter size={22} fill="currentColor" strokeWidth={0} /></a>
           </div>
 
           <div ref={ctaRef}>

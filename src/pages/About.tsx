@@ -6,40 +6,40 @@ gsap.registerPlugin(ScrollTrigger);
 
 const timelineItems = [
   {
-    year: '2015',
+    year: 'YYYY',
     title: 'Foundation',
     description:
-      'Clarion Education & Skill Pvt. Ltd. was founded with the belief that access to quality learning tools should not be constrained by geography or income.',
+      'Clarion Education & Skill Pvt. Ltd. was founded. [Verify actual founding year and add a one-line description of the founding context.]',
   },
   {
-    year: '2016',
+    year: 'YYYY',
     title: 'The ₹5 Notebook',
     description:
-      'Developed ultra-affordable school notebooks priced at ₹5, redesigning the entire value chain from paper quality to printing scale.',
+      'Developed ultra-affordable school notebooks priced at ₹5. [Verify year and add actual distribution scale achieved.]',
   },
   {
-    year: '2018',
-    title: 'IEC Material Scale-Up',
+    year: 'YYYY',
+    title: 'IEC Scale-Up',
     description:
-      'Expanded IEC and Behaviour Change Communication work across public health, sanitation, and nutrition campaigns in Bihar and Jharkhand.',
+      'Expanded IEC and Behaviour Change Communication work. [Verify year and add states/campaigns covered.]',
   },
   {
-    year: '2020',
+    year: 'YYYY',
     title: 'MASK-MAN Comic',
     description:
-      'Conceptualised and developed MASK-MAN, a pandemic-sensitive comic book for children, demonstrating edutainment as a public health tool.',
+      'Conceptualised and developed MASK-MAN, a pandemic-sensitive comic book. [Verify year and add reach/distribution numbers.]',
   },
   {
-    year: '2022',
+    year: 'YYYY',
     title: 'Multi-State Presence',
     description:
-      'Extended operations across Bihar, Jharkhand, and West Bengal with recognition through academic case documentation.',
+      'Extended operations across multiple states. [Verify year and states, add any recognition received.]',
   },
   {
-    year: '2024',
+    year: 'YYYY',
     title: 'Full Portfolio',
     description:
-      'A comprehensive portfolio spanning education systems, strategic communication, cultural documentation, and audio-visual storytelling.',
+      'A comprehensive portfolio spanning education, communication, and documentation. [Verify year and add latest achievement or project.]',
   },
 ];
 
