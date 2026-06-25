@@ -56,7 +56,7 @@ async function seed() {
   }
 
   const db = drizzle(process.env.DATABASE_URL!, {
-    mode: "planetscale",
+    mode: "default",
     schema: fullSchema,
   });
 

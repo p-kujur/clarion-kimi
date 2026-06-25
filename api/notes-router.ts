@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { eq, and, desc } from "drizzle-orm";
+import { eq, and, desc, inArray } from "drizzle-orm";
 import { createRouter, authedQuery } from "./middleware";
 import { getDb } from "./queries/connection";
 import { notes } from "../db/schema";
@@ -153,14 +153,17 @@ export const notesRouter = createRouter({
     }),
 
   deleteMany: authedQuery
-    .input(z.object({ ids: z.array(z.number()) }))
+    .input(z.object({ ids: z.array(z.number()).min(1).max(100) }))
     .mutation(async ({ ctx, input }) => {
       const db = getDb();
-      for (const id of input.ids) {
-        await db
-          .delete(notes)
-          .where(and(eq(notes.id, id), eq(notes.userId, ctx.user.id)));
-      }
+      await db
+        .delete(notes)
+        .where(
+          and(
+            inArray(notes.id, input.ids),
+            eq(notes.userId, ctx.user.id)
+          )
+        );
       return { success: true };
     }),
 

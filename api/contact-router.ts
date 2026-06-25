@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createRouter, publicQuery } from "./middleware";
+import { createRouter, publicQuery, adminQuery } from "./middleware";
 import { getDb } from "./queries/connection";
 import { contactSubmissions } from "../db/schema";
 
@@ -7,11 +7,31 @@ export const contactRouter = createRouter({
   submit: publicQuery
     .input(
       z.object({
-        name: z.string().min(1, "Name is required").max(255),
-        email: z.string().email("Valid email is required").max(320),
-        organization: z.string().max(255).optional(),
-        subject: z.string().max(255).optional(),
-        message: z.string().min(1, "Message is required"),
+        name: z
+          .string()
+          .min(1, "Name is required")
+          .max(255)
+          .transform((v) => v.trim()),
+        email: z
+          .string()
+          .email("Valid email is required")
+          .max(320)
+          .transform((v) => v.trim().toLowerCase()),
+        organization: z
+          .string()
+          .max(255)
+          .transform((v) => v.trim())
+          .optional(),
+        subject: z
+          .string()
+          .max(255)
+          .transform((v) => v.trim())
+          .optional(),
+        message: z
+          .string()
+          .min(1, "Message is required")
+          .max(5000)
+          .transform((v) => v.trim()),
       })
     )
     .mutation(async ({ input }) => {
@@ -27,7 +47,7 @@ export const contactRouter = createRouter({
       return { success: true, id: Number(result[0].insertId) };
     }),
 
-  list: publicQuery.query(async () => {
+  list: adminQuery.query(async () => {
     const db = getDb();
     const submissions = await db
       .select()
