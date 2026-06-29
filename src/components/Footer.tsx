@@ -3,7 +3,7 @@ import { Globe } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/20 bg-[#2B468B]">
+    <footer className="border-t border-white/20 bg-[#1F2937]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
 
 
@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <div className="flex items-center">
-                <img src="/images/logo.png" alt="Clari-ON" className="h-10 md:h-16 object-contain" />
+                <img src="/images/clarion-logo.png" alt="Clarion" className="h-5 md:h-6 object-contain" />
               </div>
               <span className="font-semibold text-lg text-white">
                 Clarion Global
