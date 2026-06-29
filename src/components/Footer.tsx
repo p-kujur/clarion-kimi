@@ -5,21 +5,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-white/20 bg-[#2B468B]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
-        {/* Main CTA */}
-        <div className="text-center mb-16">
-          <p className="font-sans font-semibold text-xs uppercase tracking-widest text-white/70 mb-4">
-            Get in touch
-          </p>
-          <a
-            href="mailto:hello@clarion.org"
-            className="font-sans font-bold text-3xl md:text-5xl text-white hover:text-[#F58220] transition-colors"
-          >
-            hello@clarion.org
-          </a>
-        </div>
 
-        {/* Divider */}
-        <div className="w-full h-px bg-white/20 mb-12" />
 
         {/* Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -27,7 +13,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <div className="flex items-center">
-                <img src="/images/logo.jpg" alt="Clari-ON" className="h-6 md:h-8 object-contain" />
+                <img src="/images/logo.png" alt="Clari-ON" className="h-10 md:h-16 object-contain" />
               </div>
               <span className="font-semibold text-lg text-white">
                 Clarion Global

@@ -40,7 +40,7 @@ export default function Navigation() {
             className="flex items-center gap-3 transition-opacity hover:opacity-80"
           >
             <div className="flex items-center">
-              <img src="/images/logo.jpg" alt="Clari-ON" className="h-8 md:h-10 object-contain" />
+              <img src="/images/logo.png" alt="Clari-ON" className="h-12 md:h-16 object-contain" />
             </div>
             <span className="font-semibold text-xl text-[#2B468B] hidden sm:block">
               Clarion Global

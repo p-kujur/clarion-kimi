@@ -85,29 +85,7 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Quick Links */}
-            <div className="border-t border-gray-200 pt-10">
-              <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-gray-500 mb-6">
-                Areas of Interest
-              </h4>
-              <div className="flex flex-wrap justify-center gap-3">
-                {[
-                  'Education Innovation',
-                  'IEC & BCC',
-                  'Comic Learning',
-                  'Cultural Documentation',
-                  'Strategic Communication',
-                  'AV Documentation',
-                ].map((area) => (
-                  <span
-                    key={area}
-                    className="font-sans font-semibold text-sm tracking-wide text-gray-600 px-4 py-2 bg-white border border-gray-200 rounded"
-                  >
-                    {area}
-                  </span>
-                ))}
-              </div>
-            </div>
+
           </div>
         </div>
       </section>
