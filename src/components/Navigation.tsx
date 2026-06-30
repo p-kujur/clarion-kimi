@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
-import { Globe } from 'lucide-react';
+
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
@@ -38,11 +38,12 @@ export default function Navigation() {
           <Link
             to="/"
             className="flex items-center gap-3 transition-opacity hover:opacity-80"
+            aria-label="Clarion Global"
           >
             <div className="flex items-center">
-              <img src="/images/clarion-logo.png" alt="Clarion" className="h-5 md:h-7 object-contain" />
+              <img src="/images/clarion-logo.png" alt="" className="h-5 md:h-7 object-contain" aria-hidden="true" />
             </div>
-            <span className="font-semibold text-xl text-[#2B468B] hidden sm:block">
+            <span className="font-semibold text-xl text-[#2B468B]" aria-hidden="true">
               Clarion Global
             </span>
           </Link>

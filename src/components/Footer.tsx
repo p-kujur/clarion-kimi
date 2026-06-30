@@ -1,5 +1,4 @@
 import { Link } from 'react-router';
-import { Globe } from 'lucide-react';
 
 export default function Footer() {
   return (

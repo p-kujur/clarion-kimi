@@ -48,24 +48,22 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Contact Details — Open, Engaging Layout */}
-      <section className="py-24 md:py-36 bg-white relative">
+      {/* Contact Details — Cards Layout */}
+      <section className="py-24 md:py-36 bg-gray-50/50 relative">
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
 
-          {/* Primary CTA (Email) - Massive & Interactive */}
-          <div className="contact-item mb-24 md:mb-32 group flex flex-col items-center text-center">
-            <p className="font-sans font-bold text-xs uppercase tracking-widest text-[#F58220] mb-6 flex items-center justify-center gap-4">
-              <span className="w-12 h-px bg-[#F58220]"></span> Direct Email <span className="w-12 h-px bg-[#F58220]"></span>
+          {/* Primary CTA (Email) - Card */}
+          <div className="contact-item mb-16 md:mb-24 group flex flex-col items-center text-center bg-white rounded-3xl shadow-sm border border-gray-100 p-12 md:p-16 hover:shadow-md transition-all duration-300 max-w-4xl mx-auto">
+            <p className="font-sans font-bold text-xs uppercase tracking-widest text-[#F58220] mb-8 flex items-center justify-center gap-4">
+              <span className="w-8 md:w-12 h-px bg-[#F58220]"></span> Direct Email <span className="w-8 md:w-12 h-px bg-[#F58220]"></span>
             </p>
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=clarion.jh@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-4 md:gap-6 font-sans font-bold text-3xl md:text-5xl text-gray-900 transition-colors duration-500 hover:text-[#2B468B]"
+              href="mailto:clarion.jh@gmail.com"
+              className="inline-flex flex-wrap justify-center items-center gap-4 md:gap-6 font-sans font-semibold text-xl md:text-4xl text-gray-900 transition-colors duration-500 hover:text-[#2B468B]"
             >
-              clarion.jh@gmail.com
-              <span className="p-3 md:p-5 rounded-full bg-gray-50 group-hover:bg-[#2B468B] group-hover:text-white transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12">
-                <ArrowUpRight strokeWidth={2.5} className="w-8 h-8 md:w-12 md:h-12" />
+              <span className="break-all">clarion.jh@gmail.com</span>
+              <span className="p-3 md:p-5 rounded-full bg-gray-50 group-hover:bg-[#2B468B] group-hover:text-white transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12 shrink-0">
+                <ArrowUpRight strokeWidth={2.5} className="w-6 h-6 md:w-10 md:h-10" />
               </span>
             </a>
           </div>
@@ -74,7 +72,7 @@ export default function Contact() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 max-w-4xl mx-auto">
             
             {/* Phone */}
-            <div className="contact-item group flex flex-col items-center text-center">
+            <div className="contact-item group flex flex-col items-center text-center bg-white rounded-3xl shadow-sm border border-gray-100 p-10 hover:shadow-md transition-all duration-300">
               <div className="w-12 h-12 mb-6 rounded-xl bg-blue-50 flex items-center justify-center text-[#2B468B] group-hover:bg-[#F58220] group-hover:text-white transition-colors duration-300">
                 <Phone className="w-5 h-5" strokeWidth={2} />
               </div>
@@ -90,7 +88,7 @@ export default function Contact() {
             </div>
 
             {/* Office */}
-            <div className="contact-item group flex flex-col items-center text-center">
+            <div className="contact-item group flex flex-col items-center text-center bg-white rounded-3xl shadow-sm border border-gray-100 p-10 hover:shadow-md transition-all duration-300">
               <div className="w-12 h-12 mb-6 rounded-xl bg-blue-50 flex items-center justify-center text-[#2B468B] group-hover:bg-[#F58220] group-hover:text-white transition-colors duration-300">
                 <MapPin className="w-5 h-5" strokeWidth={2} />
               </div>

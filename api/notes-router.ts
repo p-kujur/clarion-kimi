@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { eq, and, desc, inArray } from "drizzle-orm";
-import { createRouter, authedQuery } from "./middleware";
+import { createRouter, authedQuery, forceCsrfProtection } from "./middleware";
 import { getDb } from "./queries/connection";
 import { notes } from "../db/schema";
 
@@ -62,7 +62,7 @@ const STARTER_NOTES = [
 ];
 
 export const notesRouter = createRouter({
-  list: authedQuery.query(async ({ ctx }) => {
+  list: authedQuery.use(forceCsrfProtection).query(async ({ ctx }) => {
     const db = getDb();
     let userNotes = await db
       .select()

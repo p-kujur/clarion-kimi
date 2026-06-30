@@ -101,7 +101,8 @@ export function createOAuthLoginHandler() {
   return async (c: Context) => {
     const { randomUUID } = await import("node:crypto");
     const state = randomUUID();
-    const redirectUri = `${process.env.APP_BASE_URL ?? new URL(c.req.url).origin}/api/oauth/callback`;
+    const rawBase = process.env.APP_BASE_URL ?? new URL(c.req.url).origin;
+    const redirectUri = `${rawBase.replace(/\/+$/, '')}/api/oauth/callback`;
     
     await setSignedCookie(c, 'oauth_state', state, env.appSecret, {
       path: '/',
@@ -149,7 +150,8 @@ export function createOAuthCallbackHandler() {
         return c.json({ error: "Invalid state parameter" }, 400);
       }
 
-      const redirectUri = `${process.env.APP_BASE_URL ?? new URL(c.req.url).origin}/api/oauth/callback`;
+      const rawBase = process.env.APP_BASE_URL ?? new URL(c.req.url).origin;
+      const redirectUri = `${rawBase.replace(/\/+$/, '')}/api/oauth/callback`;
 
       const tokenResp = await exchangeAuthCode(code, redirectUri);
       const { userId } = await verifyAccessToken(tokenResp.access_token);
@@ -177,7 +179,13 @@ export function createOAuthCallbackHandler() {
       const tokenHash = createHash("sha256").update(token).digest("hex");
       const expiresAt = new Date(Date.now() + Session.maxAgeMs);
       const userAgent = c.req.header("user-agent") || null;
-      const ipAddress = c.req.header("x-forwarded-for")?.split(",")[0]?.trim() || null;
+      let ipAddress = c.req.header("x-forwarded-for")?.split(",")[0]?.trim() || null;
+      if (ipAddress) {
+        const net = await import("node:net");
+        if (net.isIP(ipAddress) === 0 || ipAddress.length > 45) {
+          ipAddress = null;
+        }
+      }
 
       await getDb().insert(sessions).values({
         userId: user.id,

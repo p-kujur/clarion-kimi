@@ -40,6 +40,18 @@ const csrfProtection = t.middleware(async (opts) => {
   return next();
 });
 
+export const forceCsrfProtection = t.middleware(async (opts) => {
+  const { ctx, next } = opts;
+  const origin = getRequestOrigin(ctx.req);
+  if (!origin || !isTrustedOrigin(origin)) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "CSRF check failed.",
+    });
+  }
+  return next();
+});
+
 export const publicQuery = t.procedure.use(csrfProtection);
 
 const requireAuth = t.middleware(async (opts) => {
