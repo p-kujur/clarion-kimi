@@ -1,45 +1,72 @@
-# Clarion Knowledge Base
+# Clarion Global Website
 
-A dedicated knowledge base and fullstack platform for **Clarion Education & Skill Pvt. Ltd.** It features markdown-based notes with wiki-style linking, structured for easy discovery and learning.
+Public marketing website for **Clarion Education & Skill Pvt. Ltd.** — a purpose-driven social enterprise working at the intersection of education, communication, and social innovation.
 
 ## Features
 
-- Clean UI matching Clarion's branding
-- Per-user contact submissions via tRPC + MySQL
+- Home, About, Work, and Contact pages
+- GSAP scroll and entrance animations
+- Responsive layout with Clarion branding
+- Static deployment — no server or database required
 
 ## Tech Stack
 
 - React 19 + TypeScript + Vite
-- Tailwind CSS v3 + shadcn/ui
-- tRPC 11 + Hono + Drizzle ORM + MySQL
+- Tailwind CSS
 - React Router v7
+- GSAP
 
 ## Quick Start
 
-1. Clone / extract this project
-2. Install dependencies: `npm install`
-3. Copy `.env.example` to `.env` and fill in `DATABASE_URL`
-4. Run database migrations: `npx drizzle-kit push`
-6. Run the dev server: `npm run dev`
-7. Build for production: `npm run build`
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # output in dist/
+npm run preview  # preview production build locally
+```
+
+## Deployment
+
+This is a static single-page app. Build with `npm run build` and deploy the `dist/` folder to any static host.
+
+### Netlify / Cloudflare Pages
+
+A `public/_redirects` file is included so client-side routes (`/about`, `/work`, etc.) work on refresh.
+
+### Vercel
+
+`vercel.json` is included for SPA routing.
+
+### Docker
+
+```bash
+docker build -t clarion-website .
+docker run -p 8080:80 clarion-website
+```
+
+Serves the built site via nginx on port 80.
+
+### Other hosts
+
+Configure your host to serve `index.html` for all routes (SPA fallback).
 
 ## Project Structure
 
 ```
 .
-├── api/                # tRPC routers, Hono server
-├── contracts/          # Shared tRPC types
-├── db/                 # Drizzle schema, migrations, seed
-├── public/             # Static assets
+├── public/             # Static assets (images, routing config)
 ├── src/
-│   ├── components/     # UI components
-│   ├── hooks/          # Custom hooks
-│   └── App.tsx         # Root component
+│   ├── components/     # Navigation, Footer
+│   ├── pages/          # Home, About, Work, Contact
+│   ├── sections/     # Home page sections
+│   └── App.tsx         # Routes
+├── index.html
+└── vite.config.ts
 ```
 
 ## Design
 
-- Primary: `#1E3A8A` (Deep Blue)
-- Secondary: `#F47B20` (Orange)
+- Primary: `#2B468B` (Deep Blue)
+- Secondary: `#F58220` (Orange)
 - Background: `#ffffff` (White)
 - Typography: Outfit & Roboto
