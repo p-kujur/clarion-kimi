@@ -8,13 +8,14 @@ export default function RainOnGlass() {
     if (!canvas) return;
 
     // ── Tunables ──
-    let RAIN_AMOUNT = 1.0;
-    let REFRACTION = 1.0;
+    const RAIN_AMOUNT = 1.0;
+    const REFRACTION = 1.0;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let paused = false;
     let destroyed = false;
 
     // ── Helpers ──
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function random(from?: any, to?: any, interp?: any): number {
       if (from == null) { from = 0; to = 1; }
       else if (to == null) { to = from; from = 0; }
@@ -39,7 +40,7 @@ export default function RainOnGlass() {
       const cx = size / 2, cy = size / 2;
       for (let py = 0; py < size; py++) {
         for (let px = 0; px < size; px++) {
-          let dx = (px - cx) / cx, dy = (py - cy) / cy;
+          const dx = (px - cx) / cx; let dy = (py - cy) / cy;
           dy *= 1.0 + dy * 0.15;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist > 1) continue;
@@ -60,7 +61,7 @@ export default function RainOnGlass() {
       const cx = size / 2, cy = size / 2;
       for (let py = 0; py < size; py++) {
         for (let px = 0; px < size; px++) {
-          let dx = (px - cx) / cx, dy = (py - cy) / cy;
+          const dx = (px - cx) / cx; let dy = (py - cy) / cy;
           dy *= 1.0 + dy * 0.15;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist > 1) continue;

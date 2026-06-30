@@ -1,9 +1,8 @@
 import { drizzle } from "drizzle-orm/mysql2";
 import { env } from "../lib/env";
 import * as schema from "@db/schema";
-import * as relations from "@db/relations";
 
-const fullSchema = { ...schema, ...relations };
+const fullSchema = { ...schema };
 
 let instance: ReturnType<typeof drizzle<typeof fullSchema>>;
 

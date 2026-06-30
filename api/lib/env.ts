@@ -9,12 +9,7 @@ function required(name: string): string {
 }
 
 export const env = {
-  appId: required("APP_ID"),
-  appSecret: required("APP_SECRET"),
   appBaseUrl: process.env.APP_BASE_URL ?? "",
   isProduction: process.env.NODE_ENV === "production",
   databaseUrl: required("DATABASE_URL"),
-  authServerUrl: required("AUTH_SERVER_URL"),
-  openPlatformUrl: required("OPEN_PLATFORM_URL"),
-  ownerUnionId: process.env.OWNER_UNION_ID ?? "",
 };
