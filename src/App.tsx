@@ -7,7 +7,6 @@ const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Work = lazy(() => import('./pages/Work'));
 const Contact = lazy(() => import('./pages/Contact'));
-const Login = lazy(() => import('./pages/Login'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -36,7 +35,6 @@ export default function App() {
         <Route path="/about" element={<Layout><About /></Layout>} />
         <Route path="/work" element={<Layout><Work /></Layout>} />
         <Route path="/contact" element={<Layout><Contact /></Layout>} />
-        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

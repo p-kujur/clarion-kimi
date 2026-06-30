@@ -5,8 +5,7 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { appRouter } from "./router";
 import { createContext } from "./context";
 import { env } from "./lib/env";
-import { createOAuthCallbackHandler, createOAuthLoginHandler } from "./oauth/auth";
-import { Paths } from "@contracts/constants";
+
 
 const app = new Hono<{ Bindings: HttpBindings }>();
 
@@ -24,8 +23,7 @@ app.use("*", async (c, next) => {
     "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self';"
   );
 });
-app.get(Paths.oauthCallback, createOAuthCallbackHandler());
-app.get(Paths.oauthLogin, createOAuthLoginHandler());
+
 const contactRateLimit = new Map<string, { count: number; resetAt: number }>();
 
 app.use("/api/trpc/contact.submit", async (c, next) => {
@@ -81,24 +79,4 @@ async function startServer() {
   serve({ fetch: app.fetch, port }, () => {
     console.log(`Server running on http://localhost:${port}/`);
   });
-
-  // Background job for defense in depth: clean up expired/revoked sessions
-  setInterval(async () => {
-    try {
-      const { getDb } = await import("./queries/connection");
-      const { sessions } = await import("../db/schema");
-      const { lt, isNotNull, or } = await import("drizzle-orm");
-      await getDb()
-        .delete(sessions)
-        .where(
-          or(
-            lt(sessions.expiresAt, new Date()),
-            isNotNull(sessions.revokedAt)
-          )
-        );
-      console.log("[cron] Cleaned up expired/revoked sessions");
-    } catch (err) {
-      console.error("[cron] Failed to clean up sessions", err);
-    }
-  }, 1000 * 60 * 60); // Run every hour
 }

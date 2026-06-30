@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createRouter, publicQuery, adminQuery } from "./middleware";
+import { createRouter, publicQuery } from "./middleware";
 import { getDb } from "./queries/connection";
 import { contactSubmissions } from "../db/schema";
 
@@ -46,13 +46,4 @@ export const contactRouter = createRouter({
 
       return { success: true, id: Number(result[0].insertId) };
     }),
-
-  list: adminQuery.query(async () => {
-    const db = getDb();
-    const submissions = await db
-      .select()
-      .from(contactSubmissions)
-      .orderBy(contactSubmissions.createdAt);
-    return submissions;
-  }),
 });
