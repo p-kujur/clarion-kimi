@@ -70,5 +70,5 @@ function requireRole(role: string) {
   });
 }
 
-export const authedQuery = t.procedure.use(requireAuth);
+export const authedQuery = t.procedure.use(csrfProtection).use(requireAuth);
 export const adminQuery = authedQuery.use(requireRole("admin"));

@@ -13,7 +13,7 @@ export async function createContext(
 ): Promise<TrpcContext> {
   const ctx: TrpcContext = { req: opts.req, resHeaders: opts.resHeaders };
   try {
-    ctx.user = await authenticateRequest(opts.req.headers);
+    ctx.user = await authenticateRequest(opts.req);
   } catch {
     // Authentication is optional here
   }

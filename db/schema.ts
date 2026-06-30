@@ -78,6 +78,8 @@ export const sessions = mysqlTable("sessions", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   expiresAt: timestamp("expiresAt").notNull(),
   revokedAt: timestamp("revokedAt"),
+  ipAddress: varchar("ipAddress", { length: 45 }),
+  userAgent: text("userAgent"),
 });
 
 export type Session = typeof sessions.$inferSelect;

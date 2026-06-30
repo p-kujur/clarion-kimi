@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { setCookie } from "hono/cookie";
+import { setCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
 import * as jose from "jose";
 import * as cookie from "cookie";
 import { env } from "../lib/env";
@@ -56,8 +56,8 @@ async function verifyAccessToken(
   return { userId, clientId };
 }
 
-export async function authenticateRequest(headers: Headers) {
-  const cookies = cookie.parse(headers.get("cookie") || "");
+export async function authenticateRequest(req: Request) {
+  const cookies = cookie.parse(req.headers.get("cookie") || "");
   const token = cookies[Session.cookieName];
   if (!token) {
     console.warn("[auth] No session cookie found in request.");
@@ -81,10 +81,45 @@ export async function authenticateRequest(headers: Headers) {
     .limit(1);
   
   const activeSession = sessionRow.at(0);
-  if (!activeSession || activeSession.revokedAt !== null) {
-    throw Errors.forbidden("Session has been revoked. Please re-login.");
+  if (
+    !activeSession ||
+    activeSession.revokedAt !== null ||
+    (activeSession.expiresAt && activeSession.expiresAt < new Date())
+  ) {
+    throw Errors.forbidden("Session is invalid or expired. Please re-login.");
   }
+
+  const currentUserAgent = req.headers.get("user-agent") || null;
+  if (activeSession.userAgent && activeSession.userAgent !== currentUserAgent) {
+    throw Errors.forbidden("Session hijacked or invalid context. Please re-login.");
+  }
+
   return user;
+}
+
+export function createOAuthLoginHandler() {
+  return async (c: Context) => {
+    const { randomUUID } = await import("node:crypto");
+    const state = randomUUID();
+    const redirectUri = `${process.env.APP_BASE_URL ?? new URL(c.req.url).origin}/api/oauth/callback`;
+    
+    await setSignedCookie(c, 'oauth_state', state, env.appSecret, {
+      path: '/',
+      secure: env.isProduction,
+      httpOnly: true,
+      maxAge: 60 * 10,
+      sameSite: 'Lax',
+    });
+
+    const url = new URL(`${env.authServerUrl}/api/oauth/authorize`);
+    url.searchParams.set("client_id", env.appId);
+    url.searchParams.set("redirect_uri", redirectUri);
+    url.searchParams.set("response_type", "code");
+    url.searchParams.set("scope", "profile");
+    url.searchParams.set("state", state);
+
+    return c.redirect(url.toString(), 302);
+  };
 }
 
 export function createOAuthCallbackHandler() {
@@ -109,33 +144,12 @@ export function createOAuthCallbackHandler() {
     }
 
     try {
-      let redirectUri: string;
-      try {
-        redirectUri = atob(state);
-      } catch {
+      const storedState = await getSignedCookie(c, env.appSecret, 'oauth_state');
+      if (!storedState || storedState !== state) {
         return c.json({ error: "Invalid state parameter" }, 400);
       }
 
-      const ALLOWED_REDIRECT_ORIGINS = [
-        "http://localhost:5173",
-        "http://localhost:3000",
-        process.env.APP_BASE_URL ?? "",
-      ].filter(Boolean);
-
-      let parsedRedirect: URL;
-      try {
-        parsedRedirect = new URL(redirectUri);
-      } catch {
-        return c.json({ error: "Invalid redirect URI" }, 400);
-      }
-
-      const originAllowed = ALLOWED_REDIRECT_ORIGINS.some(
-        (allowed) => new URL(allowed).origin === parsedRedirect.origin
-      );
-
-      if (!originAllowed) {
-        return c.json({ error: "Redirect URI not allowed" }, 400);
-      }
+      const redirectUri = `${process.env.APP_BASE_URL ?? new URL(c.req.url).origin}/api/oauth/callback`;
 
       const tokenResp = await exchangeAuthCode(code, redirectUri);
       const { userId } = await verifyAccessToken(tokenResp.access_token);
@@ -162,10 +176,15 @@ export function createOAuthCallbackHandler() {
       const { createHash } = await import("node:crypto");
       const tokenHash = createHash("sha256").update(token).digest("hex");
       const expiresAt = new Date(Date.now() + Session.maxAgeMs);
+      const userAgent = c.req.header("user-agent") || null;
+      const ipAddress = c.req.header("x-forwarded-for")?.split(",")[0]?.trim() || null;
+
       await getDb().insert(sessions).values({
         userId: user.id,
         tokenHash,
         expiresAt,
+        userAgent,
+        ipAddress,
       });
 
       const cookieOpts = getSessionCookieOptions(c.req.raw.headers);

@@ -1,20 +1,5 @@
 import { Link } from 'react-router';
 
-function getOAuthUrl() {
-  const kimiAuthUrl = import.meta.env.VITE_KIMI_AUTH_URL;
-  const appID = import.meta.env.VITE_APP_ID;
-  const redirectUri = `${window.location.origin}/api/oauth/callback`;
-  const state = btoa(redirectUri);
-
-  const url = new URL(`${kimiAuthUrl}/api/oauth/authorize`);
-  url.searchParams.set("client_id", appID);
-  url.searchParams.set("redirect_uri", redirectUri);
-  url.searchParams.set("response_type", "code");
-  url.searchParams.set("scope", "profile");
-  url.searchParams.set("state", state);
-
-  return url.toString();
-}
 
 export default function Login() {
   return (
@@ -65,7 +50,7 @@ export default function Login() {
           </div>
 
           <button
-            onClick={() => { window.location.href = getOAuthUrl(); }}
+            onClick={() => { window.location.href = '/api/oauth/login'; }}
             className="relative z-10 w-full px-6 py-3 text-sm rounded-full bg-[#c8956c]/20 text-[#c8956c] hover:bg-[#c8956c]/30 transition-colors font-mono text-xs uppercase tracking-widest"
           >
             Sign In with Kimi

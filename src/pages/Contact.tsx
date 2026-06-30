@@ -58,12 +58,12 @@ export default function Contact() {
               <span className="w-12 h-px bg-[#F58220]"></span> Direct Email <span className="w-12 h-px bg-[#F58220]"></span>
             </p>
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@clarion.org"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=clarion.jh@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-4 md:gap-6 font-sans font-bold text-3xl md:text-5xl text-gray-900 transition-colors duration-500 hover:text-[#2B468B]"
             >
-              hello@clarion.org
+              clarion.jh@gmail.com
               <span className="p-3 md:p-5 rounded-full bg-gray-50 group-hover:bg-[#2B468B] group-hover:text-white transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12">
                 <ArrowUpRight strokeWidth={2.5} className="w-8 h-8 md:w-12 md:h-12" />
               </span>
@@ -82,10 +82,10 @@ export default function Contact() {
                 Call Us
               </p>
               <a
-                href="tel:+919065541550"
+                href="tel:+919523685577"
                 className="font-sans text-lg text-gray-600 hover:text-[#F58220] transition-colors duration-300 block"
               >
-                +91 90655 41550
+                +91 9523685577
               </a>
             </div>
 
