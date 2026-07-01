@@ -2,41 +2,9 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { featuredWorkItems } from '../data/workItems';
 
 gsap.registerPlugin(ScrollTrigger);
-
-interface WorkArea {
-  title: string;
-  description: string;
-  tags: string[];
-}
-
-const workAreas: WorkArea[] = [
-  {
-    title: 'The ₹5 Notebook Initiative',
-    description:
-      'Ultra-affordable school notebooks priced at ₹5, redesigning the entire value chain from paper quality to printing scale. Hundreds of thousands distributed across Bihar, Jharkhand, and West Bengal.',
-    tags: ['Education', 'Innovation', 'Scale'],
-  },
-  {
-    title: 'IEC & Behaviour Change',
-    description:
-      'Contextual, visual, and behaviour-focused IEC material for low-literacy and rural audiences. Simplifying complex messages into relatable visual stories.',
-    tags: ['Communication', 'Health', 'Rural'],
-  },
-  {
-    title: 'MASK-MAN Comic Series',
-    description:
-      'A pandemic-sensitive comic book using storytelling, humour, and peer interaction to enable risk communication without fear-mongering among children.',
-    tags: ['Edutainment', 'Health', 'Children'],
-  },
-  {
-    title: 'Cultural Documentation',
-    description:
-      'Thematic and culturally rooted educational material using regional icons and narratives to strengthen identity and engagement.',
-    tags: ['Culture', 'Identity', 'Regional'],
-  },
-];
 
 export default function WorkAreasSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -91,9 +59,9 @@ export default function WorkAreasSection() {
 
         {/* Cards Grid */}
         <div ref={cardsRef} className="grid md:grid-cols-2 gap-8">
-          {workAreas.map((area, i) => (
+          {featuredWorkItems.map((area) => (
             <div
-              key={i}
+              key={area.id}
               className="work-card group cursor-pointer bg-gray-50 border border-gray-200 rounded p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full"
             >
               {/* Content */}

@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router';
 import { lazy, Suspense } from 'react';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
@@ -29,14 +30,16 @@ function LoadingFallback() {
 
 export default function App() {
   return (
-    <Suspense fallback={<LoadingFallback />}>
-      <Routes>
-        <Route path="/" element={<Layout><Home /></Layout>} />
-        <Route path="/about" element={<Layout><About /></Layout>} />
-        <Route path="/work" element={<Layout><Work /></Layout>} />
-        <Route path="/contact" element={<Layout><Contact /></Layout>} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingFallback />}>
+        <Routes>
+          <Route path="/" element={<Layout><Home /></Layout>} />
+          <Route path="/about" element={<Layout><About /></Layout>} />
+          <Route path="/work" element={<Layout><Work /></Layout>} />
+          <Route path="/contact" element={<Layout><Contact /></Layout>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    </ErrorBoundary>
   );
 }

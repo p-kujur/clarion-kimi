@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { homePrinciples } from '../data/principles';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -71,12 +72,6 @@ export default function PhilosophySection() {
     return () => ctx.revert();
   }, []);
 
-  const principles = [
-    'Education extends beyond classrooms and textbooks',
-    'Every everyday object can become a learning medium',
-    'Communication, when designed responsibly, can shift behaviour at scale',
-  ];
-
   return (
     <section
       ref={sectionRef}
@@ -112,7 +107,7 @@ export default function PhilosophySection() {
 
         {/* Principles */}
         <div ref={principlesRef} className="grid md:grid-cols-3 gap-12">
-          {principles.map((principle, i) => (
+          {homePrinciples.map((principle, i) => (
             <div
               key={i}
               className="principle-item border-t-2 border-gray-200 pt-6"
